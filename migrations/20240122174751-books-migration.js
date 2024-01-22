@@ -1,3 +1,6 @@
+//import bcrypt from 'bcrypt';
+const bcrypt = require('bcrypt');
+
 module.exports = {
   async up(db, client) {
     // TODO write your migration here.
@@ -6,7 +9,7 @@ module.exports = {
     await db.createCollection('books');
     await db.createCollection('users');
     await db.createCollection('authors');
-    await db.collection('users').c  
+    //await db.collection('users').c 
     // await db.collection('albums').updateOne({artist: 'The Beatles'}, {$set: {blacklisted: true}});
     const passwordHash = await bcrypt.hash('admin-password', 10);
     await db.collection('users').insertOne({
