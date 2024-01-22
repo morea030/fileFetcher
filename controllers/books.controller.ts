@@ -23,7 +23,8 @@ export class BooksController {
 
     public static async create (req: Request, res: Response, next: NextFunction){
         const { bookName, authorId, publicationDate } = req.body;
-        const request: CreateBookRequest = new CreateBookRequest(bookName, publicationDate, authorId);
+        const user: IUser = req.user as IUser;
+        const request: CreateBookRequest = new CreateBookRequest(bookName, publicationDate, authorId, user);
         try {   
             const response: CreateBookResponse = await BooksController.createBookService.handle(request)
             res.status(200).json(response);

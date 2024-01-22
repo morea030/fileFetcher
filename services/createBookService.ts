@@ -11,14 +11,19 @@ import BookRepository  from "../repository/bookRepository";
 export class CreateBookService  extends AbstractAplicationService<CreateBookRequest, CreateBookResponse>{
      
     async doHandle(request: CreateBookRequest): Promise<CreateBookResponse> {
-        const { bookName, publicationDate, authorId } = request;
+        const { bookName, publicationDate, authorId, user } = request;
 
         const author: AuthorInterface | null = await AuthorRepository.findById(authorId);
 
         if (!author) {
-          const errorMessage = `Author not found. Creating author ${authorId}`;
+          const errorMessage = `Author not found author ${authorId}`;
           throw new ArgumentError(errorMessage, 404);
         }
+
+        if (user.role !== "Admin" && user.authorId !== authorId) {
+            const errorMessage = `User ${user.id} is not allowed to create a book for author ${authorId}`;
+            throw new ArgumentError(errorMessage, 403);
+            }
         
         const book: IBook = new Book({
           bookName,
