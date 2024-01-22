@@ -28,9 +28,11 @@ describe('BooksController', () => {
     const publicationDate = new Date();
     const authorId = '123';
     req.body = { bookName, publicationDate, authorId };
+    const user: IUser = { id: '123', username: 'Test User', role: 'Admin', password: '123' } as IUser;
+    req.user = user
     await BooksController.create(req, res, next);
 
-    expect(BooksController.createBookService.handle).toHaveBeenCalledWith(new CreateBookRequest(bookName, publicationDate, authorId));
+    expect(BooksController.createBookService.handle).toHaveBeenCalledWith(new CreateBookRequest(bookName, publicationDate, authorId, user));
     expect(res.status).toHaveBeenCalledWith(200);
     expect(res.json).toHaveBeenCalled();
   });
