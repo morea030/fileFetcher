@@ -28,13 +28,22 @@ with following paramaters sent in request body
 
 As a response you will get token which you should use as a bearer token when sending further request to auth protected routes
 
+In order to create Author you need to send POST request to /authors endpoint that looks like following example
+
+{"authorName": "IgorRJosic", "birthDate":"1984"}
+
+In order to fetch All authors you need to send GET request to /authors endpoint
+
+
 In order to create a book you should send POST request to the
 
 /books 
 
 endpoint with body that would look like in this example
 
-{"authorName": "Igor Josic", "bookName": "Very Often Driven Road", "publicationDate": "2012"}
+{"authorName": "Igor Josic", "bookName": "Very Often Driven Road", "publicationDate": "2012", "authorId": "123"}
+
+Note, you need to put the ID of the existing author in the authorId field
 
 In order to query all the books, send the GET request to the /books endpoint
 
