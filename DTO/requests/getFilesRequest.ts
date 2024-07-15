@@ -1,14 +1,13 @@
-import { RequestValidationError } from "../../errors/requestValidationError";
 import { AbstractAplicationRequest } from "./abstractAplicationRequest";
 
-export class GetAllAuthorsRequest extends AbstractAplicationRequest {
+export class GeFilesRequest extends AbstractAplicationRequest {
 
     constructor() {
         super();
        
     }
     toString() {
-        return `GetAllAuthorsRequest`;
+        return `GeFilesRequest`;
     }
     validate() {
         //noop

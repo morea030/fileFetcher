@@ -1,16 +1,11 @@
 import express from 'express';
 import router from './router';
-import mongoose from 'mongoose';
 import { logger } from 'express-winston';
 import { ErrorHandler } from './middlewares/errorHandler';
-import passport from 'passport';
-import './passport';
+import FilesAdapter from "./adapters/filesAdapter"
+import CacheService from './services/cacheService';
+import {cacheKey} from "./constants"
 
-const mongoURI = 'mongodb://127.0.0.1:27017/books';
-mongoose.connect(mongoURI);
-mongoose.connection.once('open', () => {
-    console.log('Connected to MongoDB');
-  });
   
 const winston = require('winston');
 
@@ -31,7 +26,6 @@ const loggr = winston.createLogger({
 
 const app = express();
 const port = 3000;
-app.use(passport.initialize());
 
 app.use(express.urlencoded({ extended: false }));
 app.use(logger({ winstonInstance: loggr }));
@@ -41,3 +35,7 @@ app.use('/', router);
 
 app.use(ErrorHandler.handleError);
 app.listen(port, () => console.log(`Server running on port ${port}`));
+
+// Init Cache 
+const resultsToStash = FilesAdapter.fetchFiles();
+CacheService.set(cacheKey, resultsToStash)

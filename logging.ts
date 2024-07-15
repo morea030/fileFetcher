@@ -28,9 +28,9 @@ export class Logging {
                 trace: 6,
             },
             defaultMeta: {
-                type: 'Q-Company-book-application',
+                type: 'files-application',
                 pid: process.pid,
-                component: 'book-application',
+                component: 'files-application',
                 environment: 'development',
             },
             transports: [new transports.Console(), // Log to the console

@@ -1,5 +1,3 @@
-export interface AuthorInterface  {
-    id: string;
-    authorName: string;
-    birthDate?: Date;
-  }
+export interface FileStructure {
+  [key: string]: any;
+}
